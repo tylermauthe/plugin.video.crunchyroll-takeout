@@ -245,7 +245,7 @@ class CrunchyPlayback:
 			rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
 		item = xbmcgui.ListItem()
 
-		item.setInfo( type="Video", infoLabels={ 'title': stream['episode_title'], 'tvshowtitle': stream['series_title'], 'episode': (int(stream['episode_number']) if stream['episode_number'] else 0),"Season":0})
+		item.setInfo( type="Video", infoLabels={ 'title': stream['episode_title'], 'tvshowtitle': stream['series_title'], 'episode': (int(stream['episode_number']) if stream['episode_number'] else 0),"Season":0, 'OriginalTitle':stream['series_name']})
 		item.setProperty('IsPlayable', 'true')
 
 		subs = []
