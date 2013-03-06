@@ -46,6 +46,7 @@ class UI:
 	def addItem(self, info, isFolder=True, total_items = 0):
 		#Defaults in dict. Use 'None' instead of None so it is compatible for quote_plus in parseArgs
 		info.setdefault('url','None')
+		info.setdefault('series_name','None')
 		info.setdefault('Thumb','None')
 		info.setdefault('id','None')
 		info.setdefault('page_url','None')
@@ -58,6 +59,7 @@ class UI:
 			'?url='+urllib.quote_plus(info['url'])+\
 			'&mode='+urllib.quote_plus(info['mode'])+\
 			'&name='+urllib.quote_plus(info['Title'])+\
+			'&series_name='+urllib.quote_plus(info['series_name'])+\
 			'&id='+urllib.quote_plus(info['id'])+\
 			'&resolutions='+urllib.quote_plus(info['resolutions'])+\
 			'&page_url='+urllib.quote_plus(info['page_url'])+\
@@ -237,8 +239,7 @@ class UI:
                 crunchy_scraper.CrunchyScraper().getScrappedSeries(self.main.args.mode, self.main.args.id)
 		
 	def startVideo(self):
-		print 
-		CrunchyPlayback().startPlayback(self.main.args.id, self.main.args.page_url, self.main.args.resolutions)
+		CrunchyPlayback().startPlayback(self.main.args.id, self.main.args.page_url, self.main.args.resolutions, self.main.args.series_name)
 
 class Main:
 

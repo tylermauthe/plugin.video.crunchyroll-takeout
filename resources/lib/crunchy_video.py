@@ -77,7 +77,7 @@ class CrunchyPlayback:
 		self.referer = self.currenturl
 		return html
 	
-	def startPlayback(self, vid_id, page_url, resolutions):
+	def startPlayback(self, vid_id, page_url, resolutions, series_name):
 		stream = {}
 		settings = {}
 		cj = cookielib.LWPCookieJar()
@@ -168,13 +168,16 @@ class CrunchyPlayback:
 		url_ref = urllib.urlencode(prhold)
 		response = self.opener.open(playlist, url_ref)
 		xmlSource = response.read()
-		#print xmlSource
 		soup = BeautifulSoup(xmlSource)
+
 		player_url = soup.find('default:chromelessplayerurl').string
 		meta_info = soup.find('media_metadata')
 		try:
-			stream['episode_display'] = meta_info.series_title.string +" - "+ meta_info.episode_number.string
-		except:
+			stream['episode_display'] = series_name +" - "+ meta_info.episode_number.string
+			stream['series_name'] = series_name
+			stream['episode'] = meta_info.episode_number.string
+		except Exception as e:
+			print '--------> Error', str(e)
 			stream['episode_display'] = 'Crunchyroll.com'
 		
 		stream_info = soup.find('stream_info')
@@ -182,7 +185,7 @@ class CrunchyPlayback:
 			try:
 				stream['url'] = stream_info.host.string
 				if stream_info.host.string is None:
-                                        stream['url'] = "null.net/dummy"
+					stream['url'] = "null.net/dummy"
 				stream['token'] = stream_info.token.string
 				stream['file'] = stream_info.file.string
 				stream['page_url'] = page_url
@@ -196,7 +199,6 @@ class CrunchyPlayback:
 				
 				useSubs = False
 				mediaid = vid_id
-				#subtitles = soup.find('subtitles')
 				subtitles = soup.find('iv')
 				print "CRUNCHYROLL: --> Attempting to find subtitles..."
 				if(subtitles):
@@ -235,17 +237,41 @@ class CrunchyPlayback:
 		
 	def playvideo(self, stream, mediaid, useSubs):
 		#rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
-                if stream['url'] == "null.net/dummy":
-                        rtmp_url = stream['file'].replace('&amp;','&')
-                else:
-                        rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
+		if stream['url'] == "null.net/dummy":
+			rtmp_url = stream['file'].replace('&amp;','&')
+		else:
+			rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
 		item = xbmcgui.ListItem(stream['episode_display'])
+
 		item.setInfo( type="Video", infoLabels={ "Title": stream['episode_display'] })
 		item.setProperty('IsPlayable', 'true')
+
+		subs = []
+		if useSubs:
+			subs.append(xbmc.translatePath('special://temp/crunchy_' + mediaid + self.subFormat))
+		localSubs = self.findSubtitles(stream['series_name'], stream['episode'])
+
+		if localSubs:
+			subs.append(localSubs)
+		xbmc.Player().play(rtmp_url, item)
+		time.sleep(1)
+		while not xbmc.Player().isPlaying():
+			time.sleep(0.5)
 		
-		if(useSubs == True):
-			print "CRUNCHYROLL: --> Playing video and setting subtitles to special://temp/crunchy_"+mediaid+".ass"
-			xbmc.Player().play(rtmp_url)
-			xbmc.Player().setSubtitles(xbmc.translatePath('special://temp/crunchy_' + mediaid + self.subFormat))
-		else:
-			xbmc.Player().play(rtmp_url, item)
+		for sub in subs:
+			print "--------------->>>>>Adding subs "+sub
+			xbmc.Player().setSubtitles(sub)
+	
+	def findSubtitles(self, series, episode):
+		subsFolder = xbmc.translatePath('special://subtitles')
+		if not subsFolder:
+			return None
+		nameSearch = re.compile('.*'+series+'[ -_]*[0]*'+episode+'[\\D]{1}.*')
+		#print "------------> RE:"+'.*'+series+'[ -_]*[0]*'+episode+'[\\D]{1}.*'
+		for root, dirs, files in os.walk(subsFolder):
+			
+			for name in files:
+				#print '------>Checking '+root+' '+name
+				if nameSearch.match(name):
+					return os.path.join(root, name)
+		return None
