@@ -78,6 +78,7 @@ class CrunchyPlayback:
 		return html
 	
 	def startPlayback(self, vid_id, page_url, resolutions, series_name):
+		#print '----------->Start playing '+series_name+' '+page_url
 		stream = {}
 		settings = {}
 		cj = cookielib.LWPCookieJar()
@@ -173,12 +174,14 @@ class CrunchyPlayback:
 		player_url = soup.find('default:chromelessplayerurl').string
 		meta_info = soup.find('media_metadata')
 		try:
-			stream['episode_display'] = series_name +" - "+ meta_info.episode_number.string
+			stream['episode_display'] = series_name +" - "+ (meta_info.episode_number.string+':' if meta_info.episode_number.string else '')+(meta_info.episode_title.string if meta_info.episode_title.string else '')
 			stream['series_name'] = series_name
-			stream['episode'] = meta_info.episode_number.string
+			stream['series_title'] = meta_info.series_title.string+':' if meta_info.series_title.string else series_name
+			stream['episode_number'] = meta_info.episode_number.string
+			stream['episode_title'] = meta_info.episode_title.string
 		except Exception as e:
-			print '--------> Error', str(e)
-			stream['episode_display'] = 'Crunchyroll.com'
+			print '--------> Error:'+ str(e)
+			stream['series_title'] = 'Crunchyroll.com'
 		
 		stream_info = soup.find('stream_info')
 		if stream_info:
@@ -236,42 +239,39 @@ class CrunchyPlayback:
 			print "Playback Failed!"
 		
 	def playvideo(self, stream, mediaid, useSubs):
-		#rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
 		if stream['url'] == "null.net/dummy":
 			rtmp_url = stream['file'].replace('&amp;','&')
 		else:
 			rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
-		item = xbmcgui.ListItem(stream['episode_display'])
+		item = xbmcgui.ListItem()
 
-		item.setInfo( type="Video", infoLabels={ "Title": stream['episode_display'] })
+		item.setInfo( type="Video", infoLabels={ 'title': stream['episode_title'], 'tvshowtitle': stream['series_title'], 'episode': (int(stream['episode_number']) if stream['episode_number'] else 0),"Season":0})
 		item.setProperty('IsPlayable', 'true')
 
 		subs = []
 		if useSubs:
 			subs.append(xbmc.translatePath('special://temp/crunchy_' + mediaid + self.subFormat))
-		localSubs = self.findSubtitles(stream['series_name'], stream['episode'])
+		localSubs = self.findSubtitles(stream['series_name'], stream['episode_number'])
 
 		if localSubs:
-			subs.append(localSubs)
+			subs = subs + localSubs
 		xbmc.Player().play(rtmp_url, item)
+		#Win adn Linux are OK, MAC needs to sleep 1 sec (at least on mine)
 		time.sleep(1)
 		while not xbmc.Player().isPlaying():
 			time.sleep(0.5)
 		
 		for sub in subs:
-			print "--------------->>>>>Adding subs "+sub
 			xbmc.Player().setSubtitles(sub)
 	
 	def findSubtitles(self, series, episode):
 		subsFolder = xbmc.translatePath('special://subtitles')
-		if not subsFolder:
+		if not subsFolder or not series or not episode:
 			return None
-		nameSearch = re.compile('.*'+series+'[ -_]*[0]*'+episode+'[\\D]{1}.*')
-		#print "------------> RE:"+'.*'+series+'[ -_]*[0]*'+episode+'[\\D]{1}.*'
+		localSubs = []
+		nameSearch = re.compile('^.*'+series.lower()+'[ -/_]*[0]*'+episode+'[\\D]{1}.*(ass)|(ssa)|(str)$')
 		for root, dirs, files in os.walk(subsFolder):
-			
 			for name in files:
-				#print '------>Checking '+root+' '+name
-				if nameSearch.match(name):
-					return os.path.join(root, name)
-		return None
+				if nameSearch.match(name.lower()):
+					localSubs.append(os.path.join(root, name))
+		return localSubs
