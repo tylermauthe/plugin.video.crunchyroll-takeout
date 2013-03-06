@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <!-- Crunchyroll Login Info -->
+    <string id="20002">Username</string>
+    <string id="20003">Password</string>
+    <!-- Video Quality Selector -->
+    <string id="30001">Video quality:</string>
+    <string id="30002">360p (SD)</string>
+    <string id="30003">480p</string>
+    <string id="30004">720p (HD)</string>
+    <string id="30008">1080p (HD)</string>
+    <string id="30005">Ask</string>
+    <string id="30006">Highest available quality</string>
+	<!-- Image Quality Selector -->
+	<string id="40001">Thumbnail quality:</string>
+	<string id="40002">Low</string>
+	<string id="40003">Medium</string>
+	<string id="40004">High</string>
+	<!-- Interface Strings -->
+	<string id="50000">Anime</string>
+	<string id="50001">All Anime</string>
+	<string id="50002">Recently Added</string>
+	<string id="50003">Most Popular</string>
+	<string id="50004">Drama</string>
+	<string id="50005">Queue</string>
+	<string id="50006">Simulcasts</string>
+	<string id="50007">Browse by Genre</string>
+	<string id="50008">All Drama</string>
+	<string id="50009">Pop</string>
+	<!-- Genra Strings -->
+	<string id="60001">Action</string>
+    <string id="60002">Adventure</string>
+    <string id="60003">Comedy</string>
+    <string id="60004">Drama</string>
+    <string id="60005">Ecchi</string>
+    <string id="60006">Fantasy</string>
+    <string id="60007">Harem</string>
+	<string id="60008">Horror</string>
+    <string id="60009">Magic</string>
+    <string id="60010">Martial Arts</string>
+    <string id="60011">Mecha</string>
+    <string id="60012">Military</string>
+    <string id="60013">Parody</string>
+    <string id="60014">Psychological</string>
+	<string id="60015">Romance</string>
+    <string id="60016">Science Fiction</string>
+    <string id="60017">Shoujo</string>
+	<string id="60018">Slice of Life</string>
+    <string id="60019">Space</string>
+    <string id="60020">Sports</string>
+	<string id="60021">Supernatural</string>
+    <string id="60022">Tournament</string>
+    <string id="60023">Chinese</string>
+    <string id="60024">Japanese</string>
+    <string id="60025">Korean</string>
+    <string id="60026">Crime</string>
+    <string id="60027">Family</string>
+	<string id="60028">Food</string>
+    <string id="60029">Historical</string>
+    <string id="60030">Thriller</string>
+	<string id="60031">Winter 2012</string>
+	<string id="60032">Spring 2012</string>
+	<string id="60040">J-Music</string>
+	<string id="60041">K-pop</string>
+    <string id="60042">Culture</string>
+    <string id="60043">Reviews</string>
+    <string id="60044">Fashion</string>
+    <string id="60045">Cosplay</string>
+    <string id="60046">Food</string>
+	<!-- Scraper Strings -->
+	<string id="70000">Notice</string>
+	<string id="70001">Due to licensing restrictions, this series has been removed.</string>
+	<string id="70002">Attempting to log-in with your user account</string>
+	<string id="70003">No user account found</string>
+	<string id="70004">Pulling Show Data</string>
+	<string id="70005">Downloading your Queue</string>
+	<string id="70006">Login Failed: Please check Username and Password</string>
+	<!-- Player Settings -->
+	<string id="80001">Video restricted</string>
+	<string id="80002">Video not available to your user account</string>
+	<string id="80003">Mature Content</string>
+	<string id="80004">Please login to view this video</string>
+</strings>

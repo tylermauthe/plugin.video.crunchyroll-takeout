@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <!-- Crunchyroll Login Info -->
+    <string id="20002">Brukernavn</string>
+    <string id="20003">Passord</string>
+    <!-- Video Quality Selector -->
+    <string id="30001">Video kvalitet:</string>
+    <string id="30002">360p (SD)</string>
+    <string id="30003">480p</string>
+    <string id="30004">720p (HD)</string>
+    <string id="30008">1080p (HD)</string>
+    <string id="30005">Spor</string>
+    <string id="30006">Hoyest tilgjengelig kvalitet</string>
+    <!-- Image Quality Selector -->
+    <string id="40001">Miniatyrbilde kvalitet:</string>
+    <string id="40002">Lav</string>
+    <string id="40003">Medium</string>
+    <string id="40004">Hoy</string>
+    <!-- Interface Strings -->
+    <string id="50000">Anime</string>
+    <string id="50001">All Anime</string>
+    <string id="50002">Sist lagt til</string>
+    <string id="50003">Mest Populaer</string>
+    <string id="50004">Drama</string>
+    <string id="50005">Ko</string>
+    <string id="50006">Simulcasts</string>
+    <string id="50007">Sok etter sjanger</string>
+	<string id="50008">Alle Drama</string>
+    <!-- anime Genra Strings -->
+    <string id="60001">Action</string>
+    <string id="60002">Eventyr</string>
+    <string id="60003">Komedie</string>
+    <string id="60004">Drama</string>
+    <string id="60005">Ecchi</string>
+    <string id="60006">Fantasi</string>
+    <string id="60007">Harem</string>
+    <string id="60008">Skrekk</string>
+    <string id="60009">Magi</string>
+    <string id="60010">Kampsport</string>
+    <string id="60011">Mecha</string>
+    <string id="60012">Militaer</string>
+    <string id="60013">Parodi</string>
+    <string id="60014">Psychological</string>
+    <string id="60015">Romantikk </string>
+    <string id="60016">Science Fiction</string>
+    <string id="60017">Shoujo</string>
+    <string id="60018">Slice of Life</string>
+    <string id="60019">Rom</string>
+    <string id="60020">Sport</string>
+    <string id="60021">Overnaturlig </string>
+    <string id="60022">Turnering</string>
+	<string id="60023">Kinesisk</string>
+    <string id="60024">Japansk</string>
+    <string id="60025">Koreansk</string>
+    <string id="60026">Krim</string>
+    <string id="60027">Familie</string>
+    <string id="60028">Mat</string>
+    <string id="60029">Historisk</string>
+    <string id="60030">Thriller</string>
+    <!-- Scraper Strings -->
+    <string id="70000">Notifikasjon</string>
+    <string id="70001">Pa grunn av lisensrestriksjoner, har denne serien blitt fjernet.</string>
+    <string id="70002">Prover a logge inn med din bruker konto </string>
+    <string id="70003">Ingen bruker funnet</string>
+    <string id="70004">Laster serie data</string>
+	<string id="70005">Laster ned koen din</string>
+	<string id="70006">Logg mislyktes: Vennligst sjekk Brukernavn og Passord</string>
+    <!-- Player Settings -->
+    <string id="80001">Video begrenset</string>
+    <string id="80002">Video ikke tilgjengelig til din bruker konto</string>
+    <string id="80003">Voksent innhold</string>
+    <string id="80004">Logg inn for a se denne videoen</string>
+</strings>
