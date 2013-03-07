@@ -174,11 +174,11 @@ class CrunchyPlayback:
 		player_url = soup.find('default:chromelessplayerurl').string
 		meta_info = soup.find('media_metadata')
 		try:
-			stream['episode_display'] = series_name +" - "+ (meta_info.episode_number.string+':' if meta_info.episode_number.string else '')+(meta_info.episode_title.string if meta_info.episode_title.string else '')
+			stream['episode_display'] = series_name + (" - "+meta_info.episode_number.string if meta_info.episode_number.string else '')+(meta_info.episode_title.string+':' if meta_info.episode_title.string else '')
 			stream['series_name'] = series_name
 			stream['series_title'] = meta_info.series_title.string+':' if meta_info.series_title.string else series_name
 			stream['episode_number'] = meta_info.episode_number.string
-			stream['episode_title'] = meta_info.episode_title.string
+			stream['episode_title'] = (meta_info.episode_title.string if meta_info.episode_title.string else stream['episode_display'])
 		except Exception as e:
 			print '--------> Error:'+ str(e)
 			stream['series_title'] = 'Crunchyroll.com'
@@ -245,7 +245,7 @@ class CrunchyPlayback:
 			rtmp_url = stream['url']+stream['file'].replace('&amp;','&') + " swfurl=" +stream['swf_url'] + " swfvfy=1 token=" +stream['token']+ " playpath=" +stream['file'].replace('&amp;','&')+ " pageurl=" +stream['page_url']+ " tcUrl=" +stream['url']
 		item = xbmcgui.ListItem()
 
-		item.setInfo( type="Video", infoLabels={ 'title': stream['episode_title'], 'tvshowtitle': stream['series_title'], 'episode': (int(stream['episode_number']) if stream['episode_number'] else 0),"Season":0, 'OriginalTitle':stream['series_name']})
+		item.setInfo( type="Video", infoLabels={ 'title': stream['episode_title'], 'tvshowtitle': stream['series_title'], 'episode': (float(stream['episode_number']) if stream['episode_number'] else 0),"Season":0, 'OriginalTitle':stream['series_name']})
 		item.setProperty('IsPlayable', 'true')
 
 		subs = []
