@@ -3,6 +3,8 @@
     <setting id="crunchy_username" type="text" label="20002" default=""/>
     <setting id="crunchy_password" type="text" label="20003" option="hidden" default=""/>
     <setting type="sep" />
+    <setting id="useDroidStream" label="Use Alternative Streaming Method (SD ONLY)" type="bool" default="false"/>
+    <setting type="sep" />
     <setting id="video_quality" type="enum" lvalues="30002|30003|30004|30008|30005|30006" label="30001" default="0" />
     <setting id="thumb_quality" type="enum" lvalues="40002|40003|40004" label="40001" default="1" />
     <setting type="sep" />
