@@ -201,7 +201,7 @@ class CrunchyParser:
 			ep_id = self.pattern_episode_id.search(item['page_url'])
 			ep_id = ep_id.group()
 			item['ep_id'] = ep_id
-			crunchy_main.UI().addItem({'Title':item['series_name']+' - '+item['name'], 'mode':'episode', 'Thumb':item['img'], 'id':item['ep_id'], 'page_url':item['page_url'], 'plot':item['description'], 'resolutions':item['resolutions'],'series_name':item['series_name']}, True, num_episodes)
+			crunchy_main.UI().addItem({'Title':item['series_name']+' - '+item['name'], 'mode':'episode', 'Thumb':item['img'], 'id':item['ep_id'], 'page_url':item['page_url'], 'plot':item['description'], 'resolutions':item['resolutions']}, True, num_episodes)
 		crunchy_main.UI().endofdirectory('none')
 
 class CrunchyScraper:

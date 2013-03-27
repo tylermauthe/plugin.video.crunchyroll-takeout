@@ -1,3 +1,9 @@
+[B]Version 0.6.5[/B]
+-Re-added alternative streaming method for playback on devices lacking rtmp playback
+-Must be enabled in settings, disabled by default, SD playback only
+[B]Version 0.6.0.5[/B]
+-Resolve the plugin not showing on new Frodo installs.
+-Force Refresh to show plugins
 [B]Version 0.6.0.3[/B]
 -Correct Playback issues for users of non-US Crunchyroll site. (le__)
 -Corrected a subtitle decoding bug (mattrk)

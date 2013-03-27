@@ -6,7 +6,7 @@ import xbmcaddon
 
 #plugin constants
 __plugin__ = "CrunchyRollTakeout"
-__version__ = "0.6.5.1"
+__version__ = "0.6.5"
 __settings__ = xbmcaddon.Addon(id='plugin.video.crunchyroll-takeout')
 
 print "[PLUGIN] '%s: version %s' initialized!" % (__plugin__, __version__)
